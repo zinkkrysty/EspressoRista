@@ -3,6 +3,8 @@ import AddBrewForm from "./components/AddBrewForm";
 import BrewList from "./components/BrewList";
 import brewsSeed from "./brewsSeed";
 
+import "./style.scss";
+
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -25,10 +27,13 @@ export default class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container mt-3">
         {!this.state.addBrewFormVisible && (
-          <button onClick={() => this.setState({ addBrewFormVisible: true })}>
-            Add a new brew
+          <button
+            className="btn btn-primary"
+            onClick={() => this.setState({ addBrewFormVisible: true })}
+          >
+            Brew now
           </button>
         )}
         <br />

@@ -17,15 +17,16 @@ export default function BrewList(props) {
   return (
     <div>
       {props.brews.map(brew => (
-        <div key={brew.date}>
-          <small>{dateFormat(brew.date, "dddd, mmmm dS, yyyy, H:MM")}</small>
-          <br />
-          {brew.coffeeName} ({brew.type})
-          <br />
-          {formatBrewDose(brew)}
-          <br />
-          {brew.grindSize && `Grind size: ${brew.grindSize}`}
-          <hr />
+        <div className="card mt-3" key={brew.date}>
+          <div className="card-body">
+            <small>{dateFormat(brew.date, "dddd, mmmm dS, yyyy, H:MM")}</small>
+            <br />
+            {brew.coffeeName} ({brew.type})
+            <br />
+            {formatBrewDose(brew)}
+            <br />
+            {brew.grindSize && `Grind size: ${brew.grindSize}`}
+          </div>
         </div>
       ))}
     </div>

@@ -14,58 +14,108 @@ class AddBrewForm extends Component {
 
   renderCoffeeNameField = () =>
     this.state.newCoffeeName ? (
-      <Text field="coffeeName" />
+      <Text className="form-control" field="coffeeName" />
     ) : (
-      <span>
+      <div className="input-group">
         <Select
           field="coffeeName"
           options={this.props.prevCoffeeNames.map(coffeeName => ({
             label: coffeeName,
             value: coffeeName
           }))}
+          className="custom-select"
         />
-        <button onClick={() => this.setState({ newCoffeeName: true })}>
-          +
-        </button>
-      </span>
+        <div className="input-group-append">
+          <button
+            className="btn btn-outline-secondary"
+            onClick={() => this.setState({ newCoffeeName: true })}
+          >
+            +
+          </button>
+        </div>
+      </div>
     );
 
   render() {
     return (
-      <Form onSubmit={brew => this.props.onAdd(brew)}>
-        {formApi => (
-          <form onSubmit={formApi.submitForm}>
-            <h1>Adding a brew</h1>
-            <label>Coffee Name</label>
-            {this.renderCoffeeNameField()}
-            <br />
-            <label>Brew type</label>
-            <Select
-              field="type"
-              options={this.brewTypes}
-              validate={value => (!value ? "Brew type is required" : null)}
-            />
-            {formApi.errors &&
-              formApi.errors.type && (
-                <span style={{ color: "red" }}>{formApi.errors.type}</span>
-              )}
-            <br />
-            <label>Grind size</label>
-            <Text field="grindSize" type="number" />
-            <br />
-            <label>Dose</label>
-            <Text field="dose" type="number" />g
-            <br />
-            <label>Extraction time</label>
-            <Text field="extractionTime" type="number" />s
-            <br />
-            <label>Yield</label>
-            <Text field="yield" type="number" />g
-            <br />
-            <button type="submit">Add</button>
-          </form>
-        )}
-      </Form>
+      <div className="card">
+        <div className="card-body">
+          <Form onSubmit={brew => this.props.onAdd(brew)}>
+            {formApi => (
+              <form onSubmit={formApi.submitForm}>
+                <h2>What do you want to brew?</h2>
+                <div className="form-group">
+                  <label>Coffee Name</label>
+                  {this.renderCoffeeNameField()}
+                </div>
+                <div className="form-group">
+                  <label>Brew type</label>
+                  <Select
+                    field="type"
+                    options={this.brewTypes}
+                    validate={value =>
+                      !value ? "Brew type is required" : null
+                    }
+                    className="custom-select"
+                  />
+                  {formApi.errors &&
+                    formApi.errors.type && (
+                      <span style={{ color: "red" }}>
+                        {formApi.errors.type}
+                      </span>
+                    )}
+                </div>
+                <div className="form-group">
+                  <label>Grind size</label>
+                  <Text
+                    field="grindSize"
+                    type="number"
+                    className="form-control"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Dose</label>
+                  <div className="input-group">
+                    <Text field="dose" type="number" className="form-control" />
+                    <div className="input-group-append">
+                      <span className="input-group-text">g</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="form-group">
+                  <label>Extraction time</label>
+                  <div className="input-group">
+                    <Text
+                      field="extractionTime"
+                      type="number"
+                      className="form-control"
+                    />
+                    <div className="input-group-append">
+                      <span className="input-group-text">s</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="form-group">
+                  <label>Yield</label>
+                  <div className="input-group">
+                    <Text
+                      field="yield"
+                      type="number"
+                      className="form-control"
+                    />
+                    <div className="input-group-append">
+                      <span className="input-group-text">g</span>
+                    </div>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  Add brew
+                </button>
+              </form>
+            )}
+          </Form>
+        </div>
+      </div>
     );
   }
 }
