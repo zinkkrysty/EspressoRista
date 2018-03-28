@@ -18,6 +18,11 @@ export default class App extends Component {
     }));
   }
 
+  // Get the unique coffee names that have been used
+  getCoffeeNames = () => [
+    ...new Set(this.state.brews.map(brew => brew.coffeeName))
+  ];
+
   render() {
     return (
       <div>
@@ -28,7 +33,10 @@ export default class App extends Component {
         )}
         <br />
         {this.state.addBrewFormVisible && (
-          <AddBrewForm onAdd={brew => this.onBrewAdded(brew)} />
+          <AddBrewForm
+            onAdd={brew => this.onBrewAdded(brew)}
+            prevCoffeeNames={this.getCoffeeNames()}
+          />
         )}
         <BrewList brews={this.state.brews} />
       </div>

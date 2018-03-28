@@ -5,12 +5,30 @@ import { Form, Text, Select } from "react-form";
 class AddBrewForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { brew: {} };
+    this.state = { newCoffeeName: false };
     this.brewTypes = [
       { label: "Espresso", value: "espresso" },
       { label: "Pour Over", value: "pourover" }
     ];
   }
+
+  renderCoffeeNameField = () =>
+    this.state.newCoffeeName ? (
+      <Text field="coffeeName" />
+    ) : (
+      <span>
+        <Select
+          field="coffeeName"
+          options={this.props.prevCoffeeNames.map(coffeeName => ({
+            label: coffeeName,
+            value: coffeeName
+          }))}
+        />
+        <button onClick={() => this.setState({ newCoffeeName: true })}>
+          +
+        </button>
+      </span>
+    );
 
   render() {
     return (
@@ -19,10 +37,18 @@ class AddBrewForm extends Component {
           <form onSubmit={formApi.submitForm}>
             <h1>Adding a brew</h1>
             <label>Coffee Name</label>
-            <Text field="coffeeName" />
+            {this.renderCoffeeNameField()}
             <br />
             <label>Brew type</label>
-            <Select field="type" options={this.brewTypes} />
+            <Select
+              field="type"
+              options={this.brewTypes}
+              validate={value => (!value ? "Brew type is required" : null)}
+            />
+            {formApi.errors &&
+              formApi.errors.type && (
+                <span style={{ color: "red" }}>{formApi.errors.type}</span>
+              )}
             <br />
             <label>Grind size</label>
             <Text field="grindSize" type="number" />
@@ -45,7 +71,8 @@ class AddBrewForm extends Component {
 }
 
 AddBrewForm.propTypes = {
-  onAdd: PropTypes.func
+  onAdd: PropTypes.func,
+  prevCoffeeNames: PropTypes.array
 };
 
 export default AddBrewForm;
