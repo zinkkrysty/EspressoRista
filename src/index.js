@@ -2,10 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 
-let app = document.createElement("div");
-app.id = "root";
-document.body.appendChild(app);
+let appContainer = document.getElementById("app-container");
 
-console.log("this works");
-
-ReactDOM.render(<App />, app);
+ReactDOM.render(<App />, appContainer);
